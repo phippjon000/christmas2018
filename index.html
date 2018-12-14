@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Christmas 2018</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  </head>
+
+  <body>
+    <div class="navbar-wrapper">
+      <div class="container">
+          <h1>Christmas Puzzle 2018</h1><br />
+          <h2>Morph-doku</h2>
+          <hr />
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-3"></div>
+        <div class="col-xs-6">
+          Welcome to morph-doku! This may seem like a standard calcu-doku puzzle, but watch that timer! The clues will change every 2 minutes! Good luck!
+        </div>
+        <div class="col-xs-3"></div>
+      </div>
+	  <div class="row">
+	    Time until morph:
+	  </div>
+      <div class="row">
+        <div class="col-xs-12" id="canvasWidth">
+          <canvas id="puzzleCanvas"></canvas>
+        </div>
+      </div>
+	  <div class="row">&nbsp;</div>
+	  <div class="row">
+	    <div class="col-xs-5"></div>
+		<div class="col-xs-2">
+			<button type="button" class="btn btn-primary" id="submit">Submit</button>
+		</div>
+		<div class="col-xs-5"></div>
+	  </div>
+	  <div class="row">
+	    <div id="answer"></div>
+	  </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="morphdokuPuzzle.js"></script>
+  </body>
+</html>

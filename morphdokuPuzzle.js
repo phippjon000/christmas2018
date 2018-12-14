@@ -1,11 +1,16 @@
 // Constants
 var TIME_PER_FRAME = 33;
 var CANVAS_HEIGHT = 700;
+var GRID_Y = 20;
+var GRID_SIZE = 450;
 
 // Globals
 var canvas;
 var ctx;
 var canvasWidth;
+var gridX;
+
+var savedTime;
 
 $(document).ready(function() {
 	// Initialize canvas and context
@@ -22,12 +27,15 @@ $(document).ready(function() {
 	$("#submit").on("click", onSubmit);
 	
 	// Start loop
+	savedTime = Date.now();
 	loop = setInterval(update, TIME_PER_FRAME);
 });
 
 function setCanvasWidth() {
 	canvasWidth = $("#canvasWidth").width();
 	canvas[0].width = canvasWidth;
+
+	gridX = (canvasWidth / 2) - (GRID_SIZE / 2);
 };
 
 function onDown(e) {
@@ -44,8 +52,33 @@ function onSubmit() {
 }
 
 function update() {
+	setTime();
 	clear();
-	ctx.strokeRect(0, 0, canvasWidth, CANVAS_HEIGHT);
+	drawGrid();
+	drawPieces();
+}
+
+function setTime() {
+	var currentTime = Date.now();
+	var difference = currentTime - savedTime;
+	console.log("time difference is " + difference);
+	var timeElapsed = Math.floor(difference / 1000);
+	var timeLeft = 120 - timeElapsed;
+	if (timeLeft <= 0) {
+		savedTime = currentTime;
+	}
+
+	var minutes = Math.floor(timeLeft / 60);
+	var seconds = timeLeft % 60;
+	var secondsString;
+	if (seconds < 10) {
+		secondsString = "0" + seconds;
+	} else {
+		secondsString = "" + seconds;
+	}
+
+	var timeString = "Time until morph: " + minutes + ":" + secondsString;
+	$("#time").text(timeString);
 }
 
 function clear() {
@@ -53,6 +86,28 @@ function clear() {
 	ctx.fillStyle = "white";
 	ctx.fillRect(0, 0, canvasWidth, CANVAS_HEIGHT);
 	ctx.fillStyle = oldFill;
+	ctx.strokeRect(0, 0, canvasWidth, CANVAS_HEIGHT);
+}
+
+function drawGrid() {
+	var boxSize = GRID_SIZE / 9;
+	for (var i = 0; i < 9; i++) {
+		for (var j = 0; j < 9; j++) {
+			ctx.strokeRect(gridX + (boxSize * i), GRID_Y + (boxSize * j), boxSize, boxSize);
+		}
+	}
+}
+
+function drawPieces() {
+	ctx.lineWidth = 3;
+	var boxSize = GRID_SIZE / 3;
+	for (var i = 0; i < 3; i++) {
+		for (var j = 0; j < 3; j++) {
+			ctx.strokeRect(gridX + (boxSize * i), GRID_Y + (boxSize * j), boxSize, boxSize);
+		}
+	}
+
+	ctx.lineWidth = 1;
 }
 
 // Return the X position of the click relative to the canvas
